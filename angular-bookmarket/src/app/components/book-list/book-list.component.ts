@@ -4,7 +4,8 @@ import { BookService } from 'src/app/service/book.service';
 
 @Component({
   selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
+  //templateUrl: './book-list.component.html',
+  templateUrl: './book-grid.component.html',
   styleUrls: ['./book-list.component.css']
 })
 export class BookListComponent implements OnInit {
