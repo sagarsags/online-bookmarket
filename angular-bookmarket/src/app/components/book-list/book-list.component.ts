@@ -13,6 +13,7 @@ export class BookListComponent implements OnInit {
 
   books : Book[];
   currentCategoryId:number;
+  checkTheKeyword : boolean =false;
   constructor(private _bookService:BookService,private _activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
@@ -23,18 +24,42 @@ export class BookListComponent implements OnInit {
 
   listBooks()
   {
-       const hasCategoryId: boolean =this._activatedRoute.snapshot.paramMap.has('id');
+    this.checkTheKeyword = this._activatedRoute.snapshot.paramMap.has("keyword");
+    if(this.checkTheKeyword)
+    {
+       this.handleSearchBooks();
+    }
+    else{
+       this.handleListBooks();
+    }
+  }
 
-      if(hasCategoryId)
+  handleListBooks()
+  {
+    const hasCategoryId: boolean =this._activatedRoute.snapshot.paramMap.has('id');
+
+    if(hasCategoryId)
+    {
+      this.currentCategoryId=+this._activatedRoute.snapshot.paramMap.get('id');
+    }
+    else{
+       this.currentCategoryId=1;
+    }
+      
+   this._bookService.getBooks(this.currentCategoryId).subscribe(
+     data=>this.books=data
+   );
+  }
+  
+  handleSearchBooks()
+  {
+    const searchBook:string=this._activatedRoute.snapshot.paramMap.get('keyword');
+    
+    this._bookService.getSearchBooks(searchBook).subscribe(
+      data=>
       {
-        this.currentCategoryId=+this._activatedRoute.snapshot.paramMap.get('id');
+        this.books=data
       }
-      else{
-         this.currentCategoryId=1;
-      }
-        
-     this._bookService.getBooks(this.currentCategoryId).subscribe(
-       data=>this.books=data
-     );
+    )
   }
 }
