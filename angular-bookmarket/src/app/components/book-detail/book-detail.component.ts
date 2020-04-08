@@ -14,13 +14,19 @@ export class BookDetailComponent implements OnInit {
   constructor(private _activatedRoute:ActivatedRoute,private _bookservice:BookService) { }
 
   ngOnInit() {
-    
+     this._activatedRoute.paramMap.subscribe(
+       ()=>{
+          this.getBookinfo();
+       }
+     )
   } 
   getBookinfo()
   {
     const id= +this._activatedRoute.snapshot.paramMap.get('id');
     this._bookservice.getBookDetails(id).subscribe(
-      data=>this.book=data
+      data=>{
+        this.book=data;
+      }
     )
   }
 }

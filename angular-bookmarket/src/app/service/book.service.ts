@@ -33,7 +33,7 @@ export class BookService {
   }
   getBookDetails(bookId: number) : Observable<Book>
   {
-    const bookDetail=`${this.baseUrl}/search/${bookId}`;
+    const bookDetail=`${this.baseUrl}/${bookId}`;
     return this.httpClient.get<Book>(bookDetail);
   }
   getBooksByCategoies():Observable<BookCategory[]>
