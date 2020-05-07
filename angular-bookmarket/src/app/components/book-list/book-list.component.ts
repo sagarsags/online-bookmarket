@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../common/book';
 import { BookService } from 'src/app/service/book.service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router/';
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-book-list',
@@ -11,10 +12,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BookListComponent implements OnInit {
 
-  books : Book[];
-  currentCategoryId:number;
+  books : Book[] = [];
+  currentCategoryId:number = 1;
   checkTheKeyword : boolean =false;
-  constructor(private _bookService:BookService,private _activatedRoute:ActivatedRoute) { }
+
+  //new properties for pagination
+  currentPage : number = 1;
+  totalRecords : number = 0;
+  pageSize : number = 3;
+  previouCategoryId = 1;
+  constructor(private _bookService:BookService,private _activatedRoute:ActivatedRoute,
+    _config:NgbPaginationConfig ) {
+      _config.maxSize = 3;
+      _config.boundaryLinks = true;
+     }
 
   ngOnInit() {
     this._activatedRoute.paramMap.subscribe(()=>{
@@ -45,10 +56,17 @@ export class BookListComponent implements OnInit {
     else{
        this.currentCategoryId=1;
     }
-      
-   this._bookService.getBooks(this.currentCategoryId).subscribe(
-     data=>this.books=data
-   );
+    //if previous and current category are not den we are setting current page to one
+    if(this.previouCategoryId != this.currentCategoryId)
+    {
+       this.currentPage = 1;
+    }
+    
+   this.previouCategoryId = this.currentCategoryId ;
+   this._bookService.getBooks(this.currentCategoryId,
+         this.currentPage - 1,
+         this.pageSize 
+    ).subscribe(this.processPaginate());
   }
   
   handleSearchBooks()
@@ -62,4 +80,21 @@ export class BookListComponent implements OnInit {
       }
     )
   }
+  processPaginate()
+  {
+     return data =>
+     {
+         this.books = data._embedded.books;
+         this.totalRecords = data.page.totalElements;
+         this.currentPage = data.page.number+1;
+         this.pageSize = data.page.size;
+     }
+  }
+  updatePageSize(pageSize: number)
+  {
+    this.pageSize = pageSize;
+    this.currentPage = 1;
+    this.listBooks();
+  }
 }
+

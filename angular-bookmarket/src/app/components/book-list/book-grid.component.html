@@ -31,6 +31,36 @@
     <div *ngIf="books?.length ==0" class="col-md-12 alert alert-warning mt-3">
       no books found
     </div>  
+    <div class="row">
+      <div  class="col-md-6 ">
+              <div class="row">
+                  <div class="col-md-4">
+                    <span>Page Size :</span>
+                  </div>
+                  <div class="col-md-8">
+                    <select (change)="updatePageSize($event.target.value)" class="form-control-sm"
+                     style="width:30%;">
+                        <option>3</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                    </select>
+                  </div>
+              </div>
+      </div>
+      <div class="col-md-6">
+        <ngb-pagination [(page)]="currentPage"
+        [pageSize]="pageSize"
+        [collectionSize]="totalRecords"
+        (pageChange)="listBooks()" class="d-flex justify-content-end">
+        <ng-template ngbPaginationPrevious>Prev</ng-template>
+        <ng-template ngbPaginationNext>Next</ng-template>
+        <ng-template ngbPaginationFirst>First</ng-template>
+        <ng-template ngbPaginationLast>Last</ng-template>
+      
+      </ngb-pagination>
+      </div>
+  </div>
   </div>
   
  </div>

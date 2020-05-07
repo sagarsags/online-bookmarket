@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/angular-bookmarket",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -26,8 +27,8 @@
               "src/styles.css"
             ],
             "scripts": [
-                 "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-                 "node_modules/jquery/dist/jquery.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {
@@ -52,6 +53,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -134,5 +139,8 @@
       }
     }
   },
-  "defaultProject": "angular-bookmarket"
+  "defaultProject": "angular-bookmarket",
+  "cli": {
+    "analytics": false
+  }
 }

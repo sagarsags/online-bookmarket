@@ -15,14 +15,11 @@ export class BookService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getBooks(theCategoryId : number):Observable<Book[]>
+  getBooks(theCategoryId : number,currentPage:number,pageSize:number):Observable<GetResponseBooks>
   {
 
-    const searchUrl=`${this.baseUrl}/search/categoryId?id=${theCategoryId}`;
-     return this.httpClient.get<GetResponseBooks>(searchUrl).pipe(
-
-        map(response => response._embedded.books)
-     );
+    const searchUrl=`${this.baseUrl}/search/categoryId?id=${theCategoryId}&page=${currentPage}&size=${pageSize}`;
+     return this.httpClient.get<GetResponseBooks>(searchUrl);
   }
   getSearchBooks(searchBookName: String):Observable<Book[]>
   {
@@ -51,6 +48,16 @@ interface GetResponseBooks
 {
     _embedded : {
       books:Book[];
+    },
+    page :{
+      //number of records in each page
+      size : number,
+      //total number of records in the db
+      totalElements : number,
+      // total number of pages available
+      totalPages : number,
+      //currentPage
+      number : number
     }
  }
 
