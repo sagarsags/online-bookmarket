@@ -11,6 +11,7 @@ import { BookCategoryComponent } from './components/book-category/book-category.
 import { SearchComponent } from './components/search/search.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
 
 
 const routes:Routes=[
@@ -29,7 +30,8 @@ const routes:Routes=[
     PageNotFoundComponent,
     BookCategoryComponent,
     SearchComponent,
-    BookDetailComponent
+    BookDetailComponent,
+    CartStatusComponent
   ],
   imports: [
     BrowserModule,
