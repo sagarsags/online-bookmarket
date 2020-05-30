@@ -12,7 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const routes:Routes=[
   {path:'books',component:BookListComponent},
@@ -37,6 +37,7 @@ const routes:Routes=[
     BrowserModule,
     HttpClientModule,
     NgbModule,
+    NgxSpinnerModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
