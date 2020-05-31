@@ -13,12 +13,14 @@ import { BookDetailComponent } from './components/book-detail/book-detail.compon
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 const routes:Routes=[
   {path:'books',component:BookListComponent},
   {path:'category/:id',component:BookListComponent},
   {path:'books/:id',component:BookDetailComponent},
   {path:'search/:keyword',component:BookListComponent},
+  {path:'cart-details',component:CartDetailsComponent},
   {path:'', redirectTo:'/books',pathMatch:'full'},
   {path:'**', component:PageNotFoundComponent}
    
@@ -31,7 +33,8 @@ const routes:Routes=[
     BookCategoryComponent,
     SearchComponent,
     BookDetailComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailsComponent
   ],
   imports: [
     BrowserModule,
