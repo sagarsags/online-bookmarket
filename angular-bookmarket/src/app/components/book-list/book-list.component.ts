@@ -74,11 +74,10 @@ export class BookListComponent implements OnInit {
   handleSearchBooks() {
     const searchBook: string = this._activatedRoute.snapshot.paramMap.get('keyword');
 
-    this._bookService.getSearchBooks(searchBook).subscribe(
-      data => {
-        this.books = data
-      }
-    )
+    this._bookService.getSearchBooks(searchBook,this.currentPage - 1,
+      this.pageSize).subscribe(
+      this.processPaginate()
+    );
   }
   processPaginate() {
     return data => {

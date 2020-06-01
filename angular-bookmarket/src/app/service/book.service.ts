@@ -21,12 +21,10 @@ export class BookService {
     const searchUrl=`${this.baseUrl}/search/categoryId?id=${theCategoryId}&page=${currentPage}&size=${pageSize}`;
      return this.httpClient.get<GetResponseBooks>(searchUrl);
   }
-  getSearchBooks(searchBookName: String):Observable<Book[]>
+  getSearchBooks(keyword: string, currentPage: number, pageSize: number):Observable<GetResponseBooks>
   {
-     const searchBookUrl=`${this.baseUrl}/search/searchBook?name=${searchBookName}`;
-     return this.httpClient.get<GetResponseBooks>(searchBookUrl).pipe(
-              map(response => response._embedded.books)
-     );
+     const searchBookUrl=`${this.baseUrl}/search/searchBook?name=${keyword}&page=${currentPage}&size=${pageSize}`;
+     return this.httpClient.get<GetResponseBooks>(searchBookUrl);
   }
   getBookDetails(bookId: number) : Observable<Book>
   {
