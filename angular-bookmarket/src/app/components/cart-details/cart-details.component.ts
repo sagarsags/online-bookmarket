@@ -27,5 +27,16 @@ export class CartDetailsComponent implements OnInit {
     );
     this._cartService.caculateTotalPrice();
   }
-
+  incrementQuantity(cartItem:CartItem)
+  {
+     this._cartService.addToCart(cartItem);
+  }
+  decrementQuantity(cartItem:CartItem)
+  {
+    this._cartService.decrementQuantity(cartItem)
+  }
+  remove(cartItem:CartItem)
+  {
+    this._cartService.remove(cartItem);
+  }
 }
